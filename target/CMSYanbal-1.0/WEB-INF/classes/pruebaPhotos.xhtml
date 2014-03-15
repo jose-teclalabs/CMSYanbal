@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link type="text/css" rel="stylesheet" href="themes/bluesky/skin.css" />
+	<style type="text/css">
+.ui-panel {
+	font-size: 85% !important;
+	font-family: calibri !important;
+	align: "center" !important;
+}
+</style>
+</h:head>
+<h:body>
+	<h:form id="formFoto" enctype="multipart/form-data">
+
+		<h:panelGrid border="0" columns="1" cellspacing="5" width="100%">
+			<p:panel>
+				<h:panelGrid columns="2" width="50%">
+					<p:commandButton value="Establecer como foto de perfil"
+						disabled="#{editorUsuarioFoto.imageTemp==null}"
+						action="#{editorUsuarioFoto.actionGuardarFoto}" process="@form"
+						oncomplete="ventanaFoto.hide();" />
+
+					<p:commandButton value="Cancelar" type="button"
+						onclick="ventanaFoto.hide();" />
+				</h:panelGrid>
+			</p:panel>
+
+			<p:panel styleClass="editorFoto">
+				<p:imageCropper value="#{editorUsuarioFoto.croppeFoto}"
+					image="/Users/Cesar/Documents/img/#{editorUsuarioFoto.imageTemp}"
+					rendered="#{editorUsuarioFoto.imageTemp!=null}"
+					initialCoords="0,0,140,150" minSize="70,75" maxSize="280,300"
+					aspectRatio="0.9" />
+
+				<p:fileUpload fileUploadListener="#{editorUsuarioFoto.uploadFile}"
+					rendered="#{editorUsuarioFoto.imageTemp==null}" mode="advanced"
+					label="Seleccione Foto (max.500Kb)" auto="true" update="formFoto"
+					sizeLimit="500000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+			</p:panel>
+
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>

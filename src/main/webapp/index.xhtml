@@ -1,0 +1,24 @@
+	<html xmlns="http://www.w3.org/1999/xhtml"
+	      xmlns:h="http://java.sun.com/jsf/html"
+	      xmlns:f="http://java.sun.com/jsf/core"
+	      xmlns:p="http://primefaces.org/ui">
+	<h:head><title>Ojala Salga u.u</title></h:head>
+	<h:body>
+	    <h:form>
+	        <table>         
+	        
+	        	<tr>
+	                <td><h:outputLabel for="code" value="Code : " /></td>
+	                <td><p:inputText id="code" value="#{adviserBean.code}">
+	                    <f:validateLength minimum="4" />
+	                </p:inputText>
+	                </td>
+	            </tr>
+     
+	            <tr>
+	                <td><p:commandButton id="addUser" value="Login" action="#{adviserBean.guardarAdviser}" ajax="false"/></td>
+	            </tr>
+	        </table>
+	    </h:form>
+	</h:body>
+	</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+		<title><ui:insert name="title">.:Anovo Transaction:.</ui:insert></title>
+		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+		<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/default.css" />
+		<style type="text/css">			
+			.ui-widget {
+				font-size: 98% !important;
+			}			
+			.ui-menu .ui-menu-item .ui-menu-item-label {
+				padding: .2em 1.7em;
+			}						
+		</style>
+<!-- 		<h:outputStylesheet name="login.css" library="css"/> -->
+</h:head>
+<h:body  >	
+	<div id="cabecera" class="ui-widget ui-widget-header ui-corner-all"  >
+		<ui:insert name="usuario">
+			<h:graphicImage id="idlogo" url="resources/img/A_NOVO-logo.png"  />
+		</ui:insert>
+	</div>
+
+	<div id="menu" class="ui-widget " >
+		<ui:insert name="menu">
+	    	<h:form id="formMenu">
+	            <p:menubar autoDisplay="false">
+	                <p:menuitem value="Inicio" url="/" icon="icon-home" />
+                    <p:submenu rendered="#{loginBean.personal.cargo.aforo}" label="Aforo" icon="icon-report">  
+	                    <p:menuitem rendered="#{loginBean.personal.cargo.aforoCliente}" value="Aforo Cliente" url="#" icon="icon-report" />  
+	                    <p:menuitem rendered="#{loginBean.personal.cargo.aforoProveedor}" value="Aforo Proveedor" url="#" icon="icon-report" /> 
+	                </p:submenu> 
+	                <p:submenu rendered="#{loginBean.personal.cargo.triaje}" label="Triaje" icon="icon-report">  
+	                    <p:menuitem rendered="#{loginBean.personal.cargo.triajeCliente}" value="Triaje Cliente" url="#" icon="icon-report" />  
+	                    <p:menuitem rendered="#{loginBean.personal.cargo.triajeProveedor}" value="Triaje Proveedor" url="#" icon="icon-report" />
+	                </p:submenu>  
+	                <p:submenu rendered="#{loginBean.personal.cargo.reparacion}" label="Reparación" icon="icon-report">  
+	                    <p:menuitem rendered="#{loginBean.personal.cargo.reparacionCliente}" value="Reparación Cliente" url="#" icon="icon-report" />  
+	                    <p:menuitem rendered="#{loginBean.personal.cargo.reparacionProveedor}" value="Reparación Proveedor" url="#" icon="icon-report" />  
+	                </p:submenu>
+	                <p:submenu rendered="#{loginBean.personal.cargo.control}" label="Control" icon="icon-report">  
+	                    <p:submenu rendered="#{loginBean.personal.cargo.controlexterno}"  label="Control Externo" url="#" icon="icon-report" >
+	                       <p:menuitem rendered="#{loginBean.personal.cargo.controlexternoCliente}" value="Control Externo Cliente" url="#" icon="icon-report" /> 
+	                   	   <p:menuitem rendered="#{loginBean.personal.cargo.controlexternoProveedor}" value="Control Externo Proveedor" url="#" icon="icon-report" />
+	                    </p:submenu>    
+	                    <p:submenu rendered="#{loginBean.personal.cargo.controlqc}" label="Control QC" url="#" icon="icon-report">  
+	                        <p:menuitem rendered="#{loginBean.personal.cargo.controlqcCliente}" value="Control QC Cliente" url="#" icon="icon-report" />               
+	                        <p:menuitem rendered="#{loginBean.personal.cargo.controlqcProveedor}" value="Control QC Proveedor" url="#" icon="icon-report" /> 
+	                    </p:submenu>                     
+	                </p:submenu> 
+	                
+	                <p:submenu label="Bodega" icon="icon-report">  
+	                	<p:submenu label="Bodega Central" url="#" icon="icon-report" >
+	                   			 <p:menuitem value="Ingresos" url="/BodegaInputMant" icon="icon-report" />  
+	                   			 <p:menuitem value="Salidas" url="/BodegaOutMant" icon="icon-report" />
+                    	</p:submenu>
+                    	<p:submenu label="Bodega Sucursal"  icon="icon-report" >
+	                   			
+                    	</p:submenu>
+	                </p:submenu>
+	                
+	                <p:submenu  rendered="#{loginBean.personal.cargo.administracion}" label="Administración" icon="icon-security">  
+	                    <p:submenu label="Mantenimiento" url="#" icon="icon-report" >
+	                       <p:menuitem value="Tipo Producto" url="/TipoProductoMant" icon="icon-report" />
+	                       <p:menuitem value="Marca" url="/MarcaMant" icon="icon-report" />
+	                       <p:menuitem value="Modelo" url="/ModeloMant" icon="icon-report" />
+	                       <p:menuitem value="Modelos y Repuestos" url="/ModeloRepuestoMant" icon="icon-report" />
+	                       <p:separator/>
+	                       <p:menuitem value="Sintomas" url="/SintomaMant" icon="icon-report" />
+	                       <p:menuitem value="Diagnosticos" url="/DiagnosticoMant" icon="icon-report" />
+	                       <p:menuitem value="Acciones" url="/AccionMant" icon="icon-report" />
+	                       <p:menuitem value="Conocimiento" url="/ConocimientoMant" icon="icon-report" />
+	                       <p:separator/>
+	                       <p:menuitem value="Cliente" url="/ClienteMant" icon="icon-report" />
+	                       <p:separator/>
+	                       <p:menuitem value="Calidad" url="/CalidadMant" icon="icon-report" />
+	                        <p:separator/>
+          	               <p:menuitem value="Tipo Bodega" url="/TipoBodegaMant" icon="icon-report" />
+       	                   <p:menuitem value="Repuestos" url="/RepuestoMant" icon="icon-report" /> 
+       	                     <p:separator/>
+       	                  	  <p:menuitem value="Nivel Reparacion" url="/NivelReparacionMant" icon="icon-report" />
+       	                            	               
+	                       <p:separator/>
+	                       <p:menuitem value="Personal" url="/PersonalAdm" icon="icon-user" /> 
+	                    </p:submenu>
+	                    <p:menuitem value="Roles" url="/CargoMant" icon="icon-rol" />  
+	                     
+	                    <p:menuitem value="Clientes" url="/seguridad/usuarios" icon="icon-user" />  
+	                    <p:menuitem value="Contrato" url="/ContratoMant" icon="icon-report" />  
+	                   
+	                </p:submenu>
+	                <p:menuitem style="position: absolute; right: 60px;" value="Hola,#{loginBean.personal.nombres}" icon="icon-man" />
+	                <p:menuitem style="position: absolute; right: 4px;" value="Salir" action="#{loginBean.efectuarLogoff()}" icon="icon-exit" />  
+	            </p:menubar>
+	        </h:form>
+  		</ui:insert>
+	</div>
+	
+	<div id="wrapper">
+		
+			<div id="page">
+				<div id="sidebar1" class="ui-widget ui-widget-content ui-corner-all ui-helper-clearfix sidebar" style="border: 0;margin-top: 0px;">
+				   <ui:insert name="menu_vertical">
+					<h:form id="frmMenu" prependId="false" >
+						 <p:menu style="width:200px">  
+					         <p:submenu label="Tareas">  
+					         	<p:menuitem value="Tarea1"   
+					                     url="/pg/home.jsf" />  
+					            <p:menuitem value="Tarea2"    
+					                     url="/pg/frmCliente.jsf" />  
+					         </p:submenu>  
+					     </p:menu>
+					</h:form>  
+			      </ui:insert>		 
+				</div>
+		
+				<div id="contenido" class="ui-widget" style="margin-left: 0px">
+					<div class="post">
+						<ui:insert name="contenido">
+						</ui:insert>
+					</div>
+				</div>
+				<div style="clear: both;">&nbsp;</div>
+			</div>
+		</div>
+		
+		<div id="footer" class="ui-widget ui-widget-header ui-corner-all">
+			<p class="copyright"> Anovo Transaction System </p>
+		</div>
+
+	<p:dialog showHeader="false" modal="true" widgetVar="statusDialog" header="Status"   
+              draggable="false" closable="false"
+              position="center"
+              resizable="false">
+        <h:outputText value="Espere porfavor..."/><br/>
+        <p:graphicImage value="resources/img/Ajaxloading.gif"/>
+    </p:dialog>
+</h:body>
+</html>

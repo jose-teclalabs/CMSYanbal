@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+  <h:head>
+    <link type="text/css" rel="stylesheet" href="themes/bluesky/skin.css" />
+    <style type="text/css"> .ui-panel { font-size: 85% !important; font-family: calibri !important; align: "center" !important; } </style>
+  </h:head>
+  <h:body>
+    <p:panel header="ASSET 3000" style="width: 350;">
+      <h:form prependId="false">
+        <p:dataTable id="basic" var="adv" value="#{adviserBean.advList}">
+          <p:column id="nameHeader">
+            <f:facet name="header"> Adviser Id </f:facet>
+            <h:outputText value="#{adv.adviserId}" />
+          </p:column>
+          <p:column>
+            <f:facet name="header"> Adviser Code </f:facet>
+            <h:outputText value="#{adv.code}" />
+          </p:column>
+          <p:column>
+            <f:facet name="header"> Adviser Name </f:facet>
+            <h:outputText value="#{adv.name}" />
+          </p:column>
+        </p:dataTable>
+      </h:form>
+    </p:panel>
+  </h:body>
+</html>

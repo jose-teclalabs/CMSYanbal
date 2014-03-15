@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html"
+ xmlns:f="http://java.sun.com/jsf/core" 
+ xmlns:p="http://primefaces.org/ui">
+  <h:head>
+    <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/login.css" />
+    <style type="text/css"> .ui-panel { font-size: 85% !important; font-family: calibri !important; align: "center" !important; } </style>
+  </h:head>
+  <h:body>
+		<h:form>
+           <p:commandButton update=":frmNuevo" value="&nbsp;Nuevo Beneficio" image="icon-add" oncomplete="dlgNuevo.show()" action ="#{benefitBean.limpiar}" />
+    	 </h:form>
+  
+     <h:form id="frmCentral">  
+		    <p:dataTable id="datatable" var="benef" value="#{benefitBean.benefits}" emptyMessage="No hay Beneficios disponibles" 
+		    paginator="true" paginatorPosition="bottom" rows="10" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">  	       
+		       
+		        <p:column headerText="ID">  
+		            <h:outputText value="#{benef.beneId}" />  
+		        </p:column>  
+		  
+		        <p:column headerText="Descripcion" filterBy="#{benef.description}">  
+		            <h:outputText value="#{benef.description}" />  
+		        </p:column>
+		        
+		        <p:column style="width:8%; text-align: center">  
+		            <p:commandButton update=":frmEditar" oncomplete="dlgEditar.show()" actionListener ="#{benefitBean.prepararActualizar(benef.beneId)}" title="Editar" icon="icon-edit"/>
+		            <p:commandButton update=":frmEliminar" oncomplete="dlgEliminar.show()" actionListener ="#{benefitBean.prepararActualizar(benef.beneId)}" title="Eliminar" icon="icon-delete" />
+		        </p:column>  
+		    </p:dataTable>  
+        </h:form>
+        
+        <h:form id="frmNuevo">
+           <p:dialog header="Ingrese nuevo beneficio" widgetVar="dlgNuevo" resizable="false" id="dlgNuevo"  
+		                showEffect="fade" hideEffect="explode" modal="true">  
+		        <p:growl id="growlNuevo" showDetail="true" sticky="false" life="3000"  />
+		        <h:panelGrid id="pgNuevo" columns="2" cellpadding="6" style="margin:0 auto;">  
+		           
+		            <h:outputText value="Descripcion :" />
+		            <p:inputText value="#{benefitBean.description}" style="width: 200px" /> 	             
+		         	    
+		        </h:panelGrid>  
+		        <p:separator/>
+		            <p:commandButton update=":frmCentral:datatable, growlNuevo" oncomplete="dlgNuevo.hide()" icon="ui-icon ui-icon-disk" actionListener ="#{benefitBean.guardarBenefit}" value="&nbsp;Guardar"/>  
+		            <p:commandButton update=":frmCentral" oncomplete="dlgNuevo.hide()" value="&nbsp;Cancelar" icon="ui-icon ui-icon-close"/>
+		    </p:dialog>  
+        </h:form>     
+     <h:form id="frmEditar">
+           <p:dialog header="Editar Tip" widgetVar="dlgEditar" resizable="false" id="dlgEditar"  
+		                showEffect="fade" hideEffect="explode" modal="true">  
+		        <p:growl id="growlEditar" showDetail="true" sticky="false" life="3000"  />
+		        <h:panelGrid id="pgEditar" columns="2" cellpadding="4" style="margin:0 auto;">  
+		  	        <h:inputHidden value ="#{benefitBean.benefitContainer.beneId}" />
+		  	        <h:outputText />  
+		  	   	  <h:outputText value="Descripcion :" />
+		            <p:inputText value="#{benefitBean.benefitContainer.description}" style="width: 200px" /> 	
+		        </h:panelGrid>  
+		        <p:separator/>
+		        <p:commandButton update=":frmCentral:datatable, growlEditar" oncomplete="dlgEditar.hide()" actionListener ="#{benefitBean.actualizarBenefit()}" value="&nbsp;Editar" /> 
+		        <p:commandButton update=":frmCentral" oncomplete="dlgEditar.hide()" value="&nbsp;Cancelar" actionListener ="#{benefitBean.limpiar()}" icon="ui-icon ui-icon-close"/>
+		    </p:dialog>  
+        </h:form>
+        
+        <h:form id="frmEliminar">                       
+		     <p:growl id="growlEliminar" showDetail="true" sticky="false" life="3000"  />	  
+		           
+		    <p:confirmDialog id="dlgEliminar" message="Desea Eliminar este Beneficio ?" header="Eliminar Beneficio" severity="alert" widgetVar="dlgEliminar"> 		
+		        <p:commandButton update=":frmCentral:datatable, growlEliminar, dlgEliminar" oncomplete="dlgEliminar.hide()" actionListener ="#{benefitBean.eliminarBenefit}" icon="ui-icon ui-icon-delete" value="&nbsp;Eliminar" />  
+		        <p:commandButton update=":frmCentral:datatable" oncomplete="dlgEliminar.hide()" value="&nbsp;Cancelar" actionListener ="#{benefitBean.limpiar()}" icon="ui-icon ui-icon-close" />
+		    </p:confirmDialog>  
+		  
+		</h:form> 
+  </h:body>
+</html>

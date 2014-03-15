@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html"
+ xmlns:f="http://java.sun.com/jsf/core" 
+ xmlns:p="http://primefaces.org/ui">
+  <h:head>
+    <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/login.css" />
+    <style type="text/css"> .ui-panel { font-size: 85% !important; font-family: calibri !important; align: "center" !important; } </style>
+  </h:head>
+  <h:body>
+     <h:form>
+           <p:commandButton update=":frmNuevo" value="&nbsp;Nuevo Producto" image="icon-add" oncomplete="dlgNuevo.show()"  actionListener ="#{productBean.limpiar()}" />
+     </h:form>
+  
+     <h:form id="frmproducts">  
+		    <p:dataTable id="datatable" var="prod" value="#{productBean.products}" emptyMessage="No hay products disponibles" 
+		    paginator="true" paginatorPosition="bottom" rows="10" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">  
+		    
+		    <p:ajax event="rowSelect" listener="#{productBean.onRowSelect}"   
+                    update=":frmproducts" oncomplete="PF('frmView').show()" />  
+		       
+		       
+		        <p:column headerText="ID">  
+		            <h:outputText value="#{prod.prodId}" />  
+		        </p:column>  
+		  
+		        <p:column headerText="Descripcion" filterBy="#{prod.description}">  
+		            <h:outputText value="#{prod.description}" />  
+		        </p:column>  
+		  
+		        <p:column headerText="Details" filterBy="#{prod.details}">  
+		            <h:outputText value="#{prod.details}" />  
+		        </p:column>
+		         <p:column headerText="Type" filterBy="#{prod.type}">  
+		            <h:outputText value="#{prod.type}" />  
+		        </p:column>  
+		        <p:column style="width:8%; text-align: center">  
+		            <p:commandButton update=":frmEditar" oncomplete="dlgEditar.show()" actionListener ="#{productBean.prepararActualizar(prod.prodId)}" title="Editar" icon="icon-edit"/>
+		            <p:commandButton update=":frmPhoto" oncomplete="dlgPhoto.show()"  actionListener ="#{productBean.prepararParaPhoto(prod.prodId)}" title="Fotografia" icon="icon-photo" />    
+		            <p:commandButton update=":frmEliminar" oncomplete="dlgEliminar.show()" actionListener ="#{productBean.prepararEliminar(prod.prodId)}" title="Eliminar" icon="icon-delete" />
+		            <p:commandButton update=":frmView" oncomplete="dlgView.show()" actionListener ="#{productBean.prepararActualizar(prod.prodId)}" title="Observar" icon="icon-lupa" />  
+		        </p:column>  
+		    </p:dataTable>  
+        </h:form>   
+     <h:form id="frmNuevo">
+           <p:dialog header="Nuevo Producto" widgetVar="dlgNuevo" resizable="false" id="dlgNuevo"  
+		                showEffect="fade" hideEffect="explode" modal="true">  
+		        <p:growl id="growlNuevo" showDetail="true" sticky="false" life="3000"  />
+		        <h:panelGrid id="pgNuevo" columns="2" cellpadding="6" style="margin:0 auto;">     
+		            <h:outputText value="Descripcion :" />
+		            <p:inputText value="#{productBean.description}" style="width: 200px" /> 
+		            <h:outputText value="Detalles :" />             		            
+		            <p:inputText value="#{productBean.details}" style="width: 200px"  />		             
+		            <h:outputText value="Type :" /> 
+		            <p:selectOneMenu value="#{productBean.type}">
+		                <f:selectItem itemLabel="- Seleccionar -" itemValue=""/>
+		                <f:selectItem itemLabel="APLICA LA BASE" itemValue="APLICA LA BASE"/>
+		                <f:selectItem itemLabel="APLICA EL CORRECTOR" itemValue="APLICA EL CORRECTOR"/>
+		                <f:selectItem itemLabel="APLICA LOS POLVOS SUELTOS" itemValue="APLICA LOS POLVOS SUELTOS"/>
+	               	  <f:selectItem itemLabel="APLICA LAS SOMBRAS" itemValue="APLICA LAS SOMBRAS"/>
+	                  <f:selectItem itemLabel="APLICA EL RIMEL" itemValue="APLICA EL RIMEL"/>
+	                   <f:selectItem itemLabel="APLICA EL RUBOR" itemValue="APLICA EL RUBOR"/>
+		            </p:selectOneMenu>		    
+		        </h:panelGrid>  
+		        <p:separator/>
+		            <p:commandButton update=":frmproducts:datatable, growlNuevo" oncomplete="dlgNuevo.hide()" icon="ui-icon ui-icon-disk" actionListener ="#{productBean.guardarProduct}" value="&nbsp;Guardar"/>  
+		            <p:commandButton update=":frmproducts" oncomplete="dlgNuevo.hide()" value="&nbsp;Cancelar" icon="ui-icon ui-icon-close"/>
+		    </p:dialog>  
+        </h:form>
+        
+        <h:form id="frmPhoto">
+           <p:dialog header="Nueva Foto" widgetVar="dlgPhoto" resizable="false" id="dlgPhoto"  
+		                showEffect="fade" hideEffect="explode" modal="true"> 
+                <h:panelGrid columns="8" width="100%"> 
+		        <h:inputHidden value ="#{productBean.productContainer.prodId}" />
+		        <p:fileUpload fileUploadListener="#{productBean.uploadFile}"
+              mode="advanced"              
+              label="Seleccione Foto (max.500Kb)"            
+              sizeLimit="500000"
+              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+              update="buttomSelect" />           
+              </h:panelGrid>
+              <h:panelGrid  id="buttomSelect" columns="8" width="100%"> 
+              <p:commandButton value="Click Para Escoger esta foto."
+               disabled="#{productBean.imageTemp==null}"
+               auto="true"
+               action="#{productBean.actionGuardarFoto}"
+               process="@form"
+               update = ":frmproducts"
+               oncomplete="dlgPhoto.hide()"/>
+                   </h:panelGrid>       	
+		    </p:dialog>  
+        </h:form>
+        
+        <h:form id="frmView">
+           <p:dialog header="Vista del Producto" widgetVar="dlgView" resizable="false" id="dlgView"  
+		                showEffect="fade" hideEffect="explode" modal="true"> 
+               
+		        <h:inputHidden value ="#{productBean.productContainer.prodId}" />
+                  <p:graphicImage library ="data" name="/general/products/#{productBean.productContainer.prodId}.jpg"  width="200" height="171"/>
+            <h:panelGrid  columns="2" cellpadding="5">
+              
+                <h:outputLabel for="description" value="Description: " />  
+                <h:outputText id="description" value="#{productBean.productContainer.description}" />  
+                  
+                <h:outputLabel for="details" value="Details: " />  
+                <h:outputText id="details" value="#{productBean.productContainer.details}" />  
+                  
+                <h:outputLabel for="type" value="Type: " />  
+                <h:outputText id="type" value="#{productBean.productContainer.type}"/>  
+            </h:panelGrid>
+            <p:commandButton update=":frmproducts" oncomplete="dlgView.hide()" value="&nbsp;Cancelar" actionListener ="#{productBean.limpiar()}" icon="ui-icon ui-icon-close"/>      	
+	       </p:dialog>  
+        </h:form>
+        
+         <h:form id="frmEditar">
+           <p:dialog header="Editar Products" widgetVar="dlgEditar" resizable="false" id="dlgEditar"  
+		                showEffect="fade" hideEffect="explode" modal="true">  
+		        <p:growl id="growlEditar" showDetail="true" sticky="false" life="3000"  />
+		        <h:panelGrid id="pgEditar" columns="2" cellpadding="4" style="margin:0 auto;">  
+		  	        <h:inputHidden value ="#{productBean.productContainer.prodId}" />
+		  	        <h:outputText />  
+		  	        <h:outputText value="Descripcion :" />
+		            <p:inputText value="#{productBean.productContainer.description}" style="width: 200px" /> 
+		            <h:outputText value="Detalles :" />             		            
+		            <p:inputText value="#{productBean.productContainer.details}" style="width: 200px"  />		             
+		           <h:outputText value="Type :" /> 
+		            <p:selectOneMenu value="#{productBean.productContainer.type}">
+		                <f:selectItem itemLabel="#{productBean.productContainer.type}" itemValue=""/>
+		                <f:selectItem itemLabel="APLICA LA BASE" itemValue="APLICA LA BASE"/>
+		                <f:selectItem itemLabel="APLICA EL CORRECTOR" itemValue="APLICA EL CORRECTOR"/>
+		                <f:selectItem itemLabel="APLICA LOS POLVOS SUELTOS" itemValue="APLICA LOS POLVOS SUELTOS"/>
+	               	  <f:selectItem itemLabel="APLICA LAS SOMBRAS" itemValue="APLICA LAS SOMBRAS"/>
+	                  <f:selectItem itemLabel="APLICA EL RIMEL" itemValue="APLICA EL RIMEL"/>
+	                   <f:selectItem itemLabel="APLICA EL RUBOR" itemValue="APLICA EL RUBOR"/>
+		            </p:selectOneMenu>
+		        </h:panelGrid>  
+		        <p:separator/>
+		        <p:commandButton update=":frmproducts:datatable, growlEditar" oncomplete="dlgEditar.hide()" actionListener ="#{productBean.actualizarProducto()}" value="&nbsp;Editar" /> 
+		        <p:commandButton update=":frmproducts" oncomplete="dlgEditar.hide()" value="&nbsp;Cancelar" actionListener ="#{productBean.limpiar()}" icon="ui-icon ui-icon-close"/>
+		    </p:dialog>  
+        </h:form>
+        
+        <h:form id="frmEliminar">                       
+		     <p:growl id="growlEliminar" showDetail="true" sticky="false" life="3000"  />	  
+		           
+		    <p:confirmDialog id="dlgEliminar" message="Desea Eliminar este producto?" header="Eliminar Producto" severity="alert" widgetVar="dlgEliminar"> 		
+		        <p:commandButton update=":frmproducts:datatable, growlEliminar, dlgEliminar" oncomplete="dlgEliminar.hide()" actionListener ="#{productBean.eliminarProducto}" icon="ui-icon ui-icon-delete" value="&nbsp;Eliminar" />  
+		        <p:commandButton update=":frmproducts:datatable" oncomplete="dlgEliminar.hide()" value="&nbsp;Cancelar" actionListener ="#{productBean.limpiar()}" icon="ui-icon ui-icon-close" />
+		    </p:confirmDialog>  
+		  
+		</h:form> 
+  </h:body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<script type="text/javascript">
+   //<![CDATA[   function logout(xhr, status, args) {
+     setTimeout(function() {
+       window.location = 'superLogin.xhtml';
+     }, 500);
+   } //]]> </script>
+</h:head>
+
+<h:body>
+	<h1>YANBAL MANTENIMIENTOS</h1>
+<h:form>  
+  
+    <h3>Default MegaMenu</h3>  
+    <p:megaMenu>  
+        <p:submenu label="MANTENIMIENTOS" icon="ui-icon-check">  
+            <p:column>  
+                <p:submenu label="PRACTICANDO MANTENIMIENTOS">  
+                    <p:menuitem value="LISTA DE ADVISER" url="/indexPrueba.xhtml" /> 
+                     <p:menuitem value="INGRESAR ADVISER " url="/index.xhtml" />
+                     <p:menuitem value="INGRESAR PRODUCTO " url="/product.xhtml" />
+                     <p:menuitem value="LISTA PRODUCTO " url="/listProducts.xhtml" />
+                     <p:menuitem value="PHOTOS PRODUCTO " url="/pruebaPhotos.xhtml" />
+                     <p:menuitem value="TIPS " url="/listTips.xhtml" />
+                     <p:menuitem value="APPLICATIONS " url="/listApplications.xhtml" />
+                     <p:menuitem value="BENEFICIOS " url="/listBenefit.xhtml" />
+                     <p:menuitem value="PRODUCTS JOINS " url="/listProductJoins.xhtml" />       
+                </p:submenu>        
+            </p:column>  
+              </p:submenu>    
+        <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />  
+    </p:megaMenu> 
+    <br /><br />  
+</h:form>  
+</h:body>
+</html>

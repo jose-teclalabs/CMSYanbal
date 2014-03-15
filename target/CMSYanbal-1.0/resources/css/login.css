@@ -1,0 +1,176 @@
+html, body {
+    font-family:Lucida Grande, Lucida Sans, Arial, sans-serif;font-size:12px;
+    height: 100%
+}
+/*       ICONOS        */
+
+.icon-key {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-key.png") !important;
+}
+.icon-home {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-home.png") !important;
+}
+.icon-search {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-search.png") !important;
+}
+.icon-mant {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-mant.png") !important;
+}
+
+.icon-lupa {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-lupa.png") !important;
+}
+
+.icon-lupa {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-lupa.png") !important;
+}
+
+
+.icon-music {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-music.png") !important;
+}
+.icon-artist {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-artist.png") !important;
+}
+.icon-album {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-album.png") !important;
+}
+.icon-title {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-title.png") !important;
+}
+.icon-report {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-report.png") !important;
+}
+.icon-security {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-security.png") !important;
+}
+.icon-rol {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-rol.png") !important;
+}
+.icon-user {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-user.png") !important;
+}
+.icon-pref {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-pref.png") !important;
+}
+.icon-exit {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-exit.png") !important;
+}
+.icon-add {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-add.png") !important;
+}
+
+.icon-photo {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-photo.png") !important;
+}
+
+.icon-edit {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-pencil.png") !important;
+}
+.icon-delete {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-bin.png") !important;
+}
+.icon-true {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-status-true.png") !important;
+}
+.icon-false {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-status-false.png") !important;
+}
+.icon-disk {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-disk.png") !important;
+}
+.icon-cancel {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-cancel.png") !important;
+}
+.icon-update {
+    width:16px;
+    height:16px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-update.png") !important;
+}
+
+.icon-man {
+    width:24px;
+    height:24px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-hombre.png") !important;
+}
+
+.icon-woman {
+    width:22px;
+    height:22px;
+    margin-right: 4px;
+    background-image:url("./../../resources/img/icon-mujer.png") !important;
+}

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+  xmlns:aop="http://www.springframework.org/schema/aop" 
+  xmlns:context="http://www.springframework.org/schema/context" 
+  xmlns:jee="http://www.springframework.org/schema/jee"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:tx="http://www.springframework.org/schema/tx" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd   
+                         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd   
+                         http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd   
+                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+<!--   <context:spring-configured /> -->
+<!--   <context:component-scan base-package="com.pe.cms.yanbal" /> -->
+<!--   <context:annotation-config /> -->
+
+  <!-- Beans Declaration -->
+	<bean id="AdviserDTO" class="com.pe.cms.yanbal.model.AdviserDTO" />
+	<bean id="AdministratorDTO" class="com.pe.cms.yanbal.model.AdministratorDTO" />
+	<bean id="ProductDTO" class="com.pe.cms.yanbal.model.ProductDTO" />
+	<bean id="TipDTO" class="com.pe.cms.yanbal.model.TipDTO" />
+	<bean id="ApplicationDTO" class="com.pe.cms.yanbal.model.ApplicationDTO" />
+	<bean id="ProductoApplicationDTO" class="com.pe.cms.yanbal.model.ProductApplicationDTO" />
+	<bean id="BenefitDTO" class="com.pe.cms.yanbal.model.BenefitDTO" />
+
+	<!-- ProductApplication Service Declaration -->
+	<bean id="ProductJoinService" class="com.pe.cms.yanbal.service.impl.ProductJoinServiceImpl">
+		<property name="productApplicationDao" ref="ProductApplicationDao" />
+		<property name="productDao" ref="ProductDao" />
+		<property name="tipDao" ref="TipDao" />
+		<property name="applicationDao" ref="ApplicationDao" />
+		<property name="benefitDao" ref="BenefitDao" />
+	</bean>
+
+	<!-- ProductApplication Join DAO Declaration -->
+	<bean id="ProductApplicationDao" class="com.pe.cms.yanbal.dao.impl.ProductApplicationDaoImpl">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+
+
+	<!-- AdviserDTO Service Declaration -->
+	<bean id="BenefitService" class="com.pe.cms.yanbal.service.impl.BenefitServiceImpl">
+		<property name="benefitDao" ref="BenefitDao" />
+	</bean>
+
+	<!-- User DAO Declaration -->
+	<bean id="BenefitDao" class="com.pe.cms.yanbal.dao.impl.BenefitDaoImpl">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+
+	<!-- AdviserDTO Service Declaration -->
+	<bean id="AdviserService" class="com.pe.cms.yanbal.service.impl.AdviserServiceImpl">
+		<property name="adviserDao" ref="AdviserDao" />
+	</bean>
+
+	<!-- User DAO Declaration -->
+	<bean id="AdviserDao" class="com.pe.cms.yanbal.dao.impl.AdviserDaoImpl">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+	
+	<!-- AdministratorDTO Service Declaration -->
+	<bean id="AdministratorService" class="com.pe.cms.yanbal.service.impl.AdministratorServiceImpl">
+		<property name="administratorDao" ref="AdministratorDao" />
+	</bean>
+	
+	<!-- AdministratorDTO DAO Declaration -->
+	<bean id="ProductDao" class="com.pe.cms.yanbal.dao.impl.ProductDaoImpl">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+	
+	<!-- ProductDTO Service Declaration -->
+	<bean id="ProductService" class="com.pe.cms.yanbal.service.impl.ProductServiceImpl">
+		<property name="productDao" ref="ProductDao" />
+	</bean>
+
+	<!-- ProductDTO DAO Declaration -->
+	<bean id="AdministratorDao" class="com.pe.cms.yanbal.dao.impl.AdministratorDaoImpl">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+	
+	<!-- TipDTO Service Declaration -->
+	<bean id="TipService" class="com.pe.cms.yanbal.service.impl.TipServiceImpl">
+		<property name="tipDao" ref="TipDao" />
+	</bean>
+
+	<!-- TipDTO DAO Declaration -->
+	<bean id="TipDao" class="com.pe.cms.yanbal.dao.impl.TipDaoImpl">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+	
+	<!-- ApplicationDTO Service Declaration -->
+	<bean id="ApplicationService" class="com.pe.cms.yanbal.service.impl.ApplicationServiceImpl">
+		<property name="applicationDao" ref="ApplicationDao" />
+	</bean>
+
+	<!-- ApplicationDTO DAO Declaration -->
+	<bean id="ApplicationDao" class="com.pe.cms.yanbal.dao.impl.ApplicationDaoImpl">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+  
+<!--   Produccion -->
+<!--   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
+<!--     <property name="driverClassName" value="org.postgresql.Driver" /> -->
+<!--     <property name="url" value="jdbc:postgresql://localhost:5432/damnfit" />  -->
+<!-- 	<property name="username" value="postgres" /> -->
+<!-- 	<property name="password" value="damnfit" /> -->
+<!--   </bean> -->
+  
+  <!--  Desarrollo -->
+  <bean id="DataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="org.postgresql.Driver" />
+    <property name="url" value="jdbc:postgresql://localhost:5432/yambal" /> 
+	<property name="username" value="postgres" />
+	<property name="password" value="postgres7" />
+  </bean>
+			
+   <bean id="SessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <property name="dataSource" ref="DataSource" />
+    <property name="annotatedClasses">
+      <list>
+        <value>com.pe.cms.yanbal.model.AdviserDTO</value>
+        <value>com.pe.cms.yanbal.model.AdministratorDTO</value>
+         <value>com.pe.cms.yanbal.model.ProductDTO</value>
+         <value>com.pe.cms.yanbal.model.TipDTO</value>
+         <value>com.pe.cms.yanbal.model.ApplicationDTO</value>
+         <value>com.pe.cms.yanbal.model.ProductApplicationDTO</value>
+          <value>com.pe.cms.yanbal.model.BenefitDTO</value>
+      </list>
+    </property>
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+        <prop key="hibernate.show_sql">true</prop>
+      </props>
+    </property>
+  </bean>
+  
+  <!-- Enable the configuration of transactional behavior based on annotations -->
+	<tx:annotation-driven transaction-manager="txManager" />
+	
+	  <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+  		  <property name="sessionFactory" ref="SessionFactory" />
+ 	 </bean>
+
+</beans>

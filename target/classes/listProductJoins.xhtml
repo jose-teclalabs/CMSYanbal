@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html"
+ xmlns:f="http://java.sun.com/jsf/core" 
+ xmlns:p="http://primefaces.org/ui">
+  <h:head>
+    <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/login.css" />
+    <style type="text/css"> .ui-panel { font-size: 85% !important; font-family: calibri !important; align: "center" !important; } </style>
+  </h:head>
+  <h:body>  
+  
+  		<h:form>
+           <p:commandButton update=":frmNuevo" actionListener ="#{productJoinBean.limpiar()}" value="&nbsp;Agrega Tipos de Aplicaciones a los Productos" image="icon-add" oncomplete="dlgNuevo.show()"  />
+        </h:form>
+          
+
+       <h:form id="frmNuevo">
+           <p:dialog header="Porfavor. Escoga un producto, y asignele sus respectivas aplicaciones." widgetVar="dlgNuevo" resizable="false" id="dlgNuevo"  
+		                showEffect="fade" hideEffect="explode" modal="true">  
+		        <p:growl id="growlNuevo" showDetail="true" sticky="false" life="3000"  />
+		        <h:panelGrid id="pgNuevo" columns="2" cellpadding="4" style="margin:0 auto;">  
+		  	        
+		  	        <h:outputLabel for="prod" value="Producto.:"/>
+                    <p:selectOneMenu id="prod" value="#{productJoinBean.productApplication.product.prodId}" >
+                        <f:selectItem itemLabel="Seleccione Producto" itemValue="productJoinBean.valorNulo" /> 
+                        <f:selectItems value="#{productJoinBean.products}" var="produ" itemValue="#{produ.prodId}" itemLabel="#{produ.description}" update="datatable" />
+                    </p:selectOneMenu>
+                    
+                    <h:outputLabel for="bene" value="Beneficios.:"/>
+                    <p:selectOneMenu id="bene" value="#{productJoinBean.productApplication.benefit.beneId}">
+                        <f:selectItem itemLabel="Seleccione Beneficios" itemValue="productJoinBean.valorNulo" /> 
+                        <f:selectItems value="#{productJoinBean.benefits}" var="bene" itemValue="#{bene.beneId}" itemLabel="#{bene.description}"/>
+                    </p:selectOneMenu>
+                    
+                     <h:outputLabel for="appli" value="Applications.:"/>
+                    <p:selectOneMenu id="appli" value="#{productJoinBean.productApplication.application.applId}">
+                        <f:selectItem itemLabel="Seleccione Application" itemValue="productJoinBean.valorNulo" noSelectionValue="" /> 
+                        <f:selectItems value="#{productJoinBean.applications}" var="appl" itemValue="#{appl.applId}" itemLabel="#{appl.description}"/>
+                    </p:selectOneMenu>
+                    
+                    <h:outputLabel for="tip" value="Tips.:"/>
+                    <p:selectOneMenu id="tip" value="#{productJoinBean.productApplication.tip.tipId}">
+                        <f:selectItem itemLabel="Seleccione Tip" itemValue="" noSelectionValue="" /> 
+                        <f:selectItems value="#{productJoinBean.tips}" var="tip" itemValue="#{tip.tipId}" itemLabel="#{tip.description}"/>
+                    </p:selectOneMenu>
+               </h:panelGrid>  
+		        <p:separator/>								
+		        <p:commandButton update="datatable,growlNuevo" icon="ui-icon ui-icon-disk" actionListener ="#{productJoinBean.guardarProductoApplicacion}" value="&nbsp;Guardar"/>  
+	            <p:commandButton oncomplete="dlgNuevo.hide()" value="&nbsp;Cancelar" actionListener ="#{productJoinBean.limpiar()}" icon="ui-icon ui-icon-close"/>
+	            <p:separator/>
+	            
+	            <p:dataTable id="datatable" var="applica" value="#{productJoinBean.productApplications}" emptyMessage="No hay Aplicaciones disponibles" 
+		    paginator="true" paginatorPosition="bottom" rows="10" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15">  	       
+		       
+		        <p:column headerText="ID">  
+		            <h:outputText value="#{applica.prapId}" />  
+		        </p:column>  
+		  
+		        <p:column headerText="Product " >  
+		            <h:outputText value="#{applica.product.description}" />  
+		        </p:column>	      	
+		      	<p:column headerText="Application " >  
+		            <h:outputText value="#{applica.application.description}" />  
+		        </p:column>
+		        <p:column headerText="Tip " >  
+		            <h:outputText value="#{applica.tip.description}" />  
+		        </p:column>
+		        <p:column headerText="Beneficio " >  
+		            <h:outputText value="#{applica.benefit.description}" />  
+		        </p:column>
+		        <p:column style="width:8%; text-align: center">  
+		            <p:commandButton oncomplete="dlgEliminar.show()" actionListener ="#{productJoinBean.prepararEliminar(applica.prapId)}" title="Eliminar" icon="icon-delete" />
+		        </p:column>  
+		    </p:dataTable>
+	            
+		    </p:dialog>  
+		    
+		    <p:growl id="growlEliminar" showDetail="true" sticky="false" life="3000"  />	  
+		           
+		    <p:confirmDialog id="dlgEliminar" message="Desea Eliminar esta Asignacion" header="Eliminar Asignacion" severity="alert" widgetVar="dlgEliminar"> 		
+		        <p:commandButton update="datatable, growlEliminar, dlgEliminar" oncomplete="dlgEliminar.hide()" actionListener ="#{productJoinBean.eliminarProductoApplication}" icon="ui-icon ui-icon-delete" value="&nbsp;Eliminar" />  
+		        <p:commandButton update="datatable" oncomplete="dlgEliminar.hide()" value="&nbsp;Cancelar" actionListener ="#{productJoinBean.limpiar()}" icon="ui-icon ui-icon-close" />
+		    </p:confirmDialog>                              
+  
+		</h:form>
+	
+  </h:body>
+</html>
